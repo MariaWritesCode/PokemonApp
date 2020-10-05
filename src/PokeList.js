@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+} from "react-router-dom";
 
 export default function PokeList() {
     const [pokemons, setPokemons] = useState();
+
 
     useEffect(() => {
         fetch("https://pokeapi.co/api/v2/pokemon/?limit=30")
@@ -10,12 +18,55 @@ export default function PokeList() {
     }, []);  //pass an empty array - only on first render as in ComponentDidMount
 
     return pokemons ? (
-        <div>
-            {pokemons.results.map((pokemon) => <li key={pokemon.url}>{pokemon.name}</li>)}
-        </div>
-    ) :
-        (
+        <Router>
+            <div>
+
+                {pokemons.results.map((pokemon) => <div key={pokemon.url}><Link to={`${pokemon.name}`}>{pokemon.name}</Link></div>)}
+
+                <Switch>
+                    <Route path="/:name">
+                        <CurrentPokemon />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    ) : (
             <div>Loading...</div>
         )
+}
+
+function CurrentPokemon() {
+    let params = useParams();
+    const [currentPokemonData, setCurrentPokemonData] = useState();
+
+    useEffect(() => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${params.name}`)
+            .then(res => res.json())
+            .then(json => setCurrentPokemonData(json));
+    }, []);
+
+    if (currentPokemonData) {
+        let pokemonPictureUrl = currentPokemonData.sprites["front_default"];
+        return (
+            <div>
+                <h3>ID: </h3>
+                <div>{currentPokemonData.id}</div>
+                <h3>Name</h3>
+                <div>{currentPokemonData.name}</div>
+                <h3>Base Exp:</h3>
+                <div>{currentPokemonData.base_experience}</div>
+                <h3>Height:</h3>
+                <div>{currentPokemonData.height}</div>
+                <h3>Weight:</h3>
+                <div>{currentPokemonData.weight}</div>
+                <div><img src={pokemonPictureUrl}></img></div>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div></div>
+        )
+    }
 }
 
