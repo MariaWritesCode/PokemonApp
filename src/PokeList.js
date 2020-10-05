@@ -15,7 +15,7 @@ export default function PokeList() {
         fetch("https://pokeapi.co/api/v2/pokemon/?limit=30")
             .then(res => res.json())
             .then(json => setPokemons(json));
-    }, []);  //pass an empty array - only on first render as in ComponentDidMount
+    }, []);
 
     return pokemons ? (
         <Router>
@@ -59,7 +59,7 @@ function CurrentPokemon() {
                 <div>{currentPokemonData.height}</div>
                 <h3>Weight:</h3>
                 <div>{currentPokemonData.weight}</div>
-                <div><img src={pokemonPictureUrl}></img></div>
+                <div><img src={pokemonPictureUrl} alt="pokemon image"></img></div>
             </div>
         )
     }
