@@ -59,7 +59,7 @@ function CurrentPokemon() {
                 <div>{currentPokemonData.height}</div>
                 <h3>Weight:</h3>
                 <div>{currentPokemonData.weight}</div>
-                <div><img src={pokemonPictureUrl} alt="pokemon image"></img></div>
+                <div><img src={pokemonPictureUrl} alt="pokemon"></img></div>
             </div>
         )
     }
