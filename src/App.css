@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -24,8 +24,25 @@
   color: white;
 }
 
+.pokeName {
+  text-decoration: underline;
+}
+
+.pokeName:hover {
+  text-decoration: none;
+}
+
 .App-link {
-  color: #61dafb;
+  color: #0b0229;
+}
+
+.outer {
+  display:flex;
+  justify-content: center;
+  padding: 15px;
+}
+.outer > div {
+  margin:100px;
 }
 
 @keyframes App-logo-spin {

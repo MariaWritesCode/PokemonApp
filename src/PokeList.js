@@ -19,9 +19,9 @@ export default function PokeList() {
 
     return pokemons ? (
         <Router>
-            <div>
+            <div className="outer">
 
-                {pokemons.results.map((pokemon) => <div key={pokemon.url}><Link to={`${pokemon.name}`}>{pokemon.name}</Link></div>)}
+                <div> {pokemons.results.map((pokemon) => <div key={pokemon.url}><Link to={`${pokemon.name}`} className="pokeName">{pokemon.name}</Link></div>)}</div>
 
                 <Switch>
                     <Route path="/:name">
@@ -43,7 +43,7 @@ function CurrentPokemon() {
         fetch(`https://pokeapi.co/api/v2/pokemon/${params.name}`)
             .then(res => res.json())
             .then(json => setCurrentPokemonData(json));
-    }, []);
+    });
 
     if (currentPokemonData) {
         let pokemonPictureUrl = currentPokemonData.sprites["front_default"];
