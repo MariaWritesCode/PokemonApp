@@ -43,7 +43,7 @@ function CurrentPokemon() {
         fetch(`https://pokeapi.co/api/v2/pokemon/${params.name}`)
             .then(res => res.json())
             .then(json => setCurrentPokemonData(json));
-    });
+    }, [params.name]);
 
     if (currentPokemonData) {
         let pokemonPictureUrl = currentPokemonData.sprites["front_default"];
